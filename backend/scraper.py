@@ -68,6 +68,8 @@ def get_img_link(news):
 
 def scrape_news(url: str):
 
+    id = 1
+
     newsDict = {}
 
     response = requests.get(url)
@@ -94,7 +96,7 @@ def scrape_news(url: str):
         img_link = get_img_link(news)
 
         if heading:
-            newsDict[get_key(news)] = {
+            newsDict[id] = {
                 "heading": heading,
                 "category": category,
                 "time": time_str,
@@ -102,6 +104,7 @@ def scrape_news(url: str):
                 "link": link,
                 "img_link": img_link,
             }
+            id += 1
 
-    newsDict = sorted(newsDict.items(), key=lambda item: item[0], reverse=True)
+    newsDict = sorted(newsDict.items(), key=lambda item: item[0])
     return newsDict
